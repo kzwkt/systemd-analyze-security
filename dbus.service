@@ -11,19 +11,21 @@ ExecReload=/usr/bin/dbus-send --print-reply --system --type=method_call --dest=o
 OOMScoreAdjust=-900
 
 FileDescriptorStoreMax=512
-IPAddressAllow=192.168.1.0/24
+IPAddressDeny=any
 LockPersonality=yes
 MemoryDenyWriteExecute=yes
 NoNewPrivileges=true
 ProtectClock=yes
-ProtectHome=yes
-ProtectKernelTunables=yes
-ProtectKernelModules=yes
-ProtectKernelLogs=yes
-ProtectProc=invisible
-PrivateTmp=yes
-ProtectSystem=strict
 ProtectControlGroups=yes
+ProtectHome=yes
+ProtectHostname=yes
+ProtectKernelLogs=yes
+ProtectKernelModules=yes
+ProtectKernelTunables=yes
+ProtectProc=invisible
+ProtectSystem=strict
+PrivateTmp=yes
+
 PrivateDevices=yes
 RestrictAddressFamilies=AF_UNIX AF_NETLINK AF_INET AF_INET6 AF_PACKET
 RestrictNamespaces=yes
@@ -32,6 +34,7 @@ RestrictSUIDSGID=true
 SystemCallArchitectures=native
 SystemCallErrorNumber=EPERM
 SystemCallFilter=@system-service
+WatchdogSec=3min
 
 #CapabilityBoundingSet=CAP_NET_BIND_SERVICE CAP_DAC_READ_SEARCH
 
