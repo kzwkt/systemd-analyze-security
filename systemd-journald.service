@@ -1,0 +1,43 @@
+Requires=systemd-journald.socket
+After=systemd-journald.socket systemd-journald-dev-log.socket systemd-journald-audit.socket sy>
+Before=sysinit.target
+
+# Mount and swap units need the journal socket units. If they were removed by
+# an isolate request the mount and swap units would be removed too, hence let's
+# exclude systemd-journald and its sockets from isolate requests.
+IgnoreOnIsolate=yes
+
+[Service]
+DeviceAllow=char-* rw
+ExecStart=/lib/systemd/systemd-journald
+FileDescriptorStoreMax=4224
+IPAddressDeny=any
+LockPersonality=yes
+MemoryDenyWriteExecute=yes
+NoNewPrivileges=yes
+OOMScoreAdjust=-250
+ProtectClock=yes
+Restart=always
+RestartSec=0
+RestrictAddressFamilies=AF_UNIX AF_NETLINK
+RestrictNamespaces=yes
+RestrictRealtime=yes
+RestrictSUIDSGID=yes
+RuntimeDirectory=systemd/journal
+RuntimeDirectoryPreserve=yes
+Sockets=systemd-journald.socket systemd-journald-dev-log.socket systemd-journald-audit.socket
+StandardOutput=null
+SystemCallArchitectures=native
+SystemCallErrorNumber=EPERM
+SystemCallFilter=@system-service
+Type=notify
+WatchdogSec=3min
+
+# In case you're wondering why CAP_SYS_PTRACE is needed, access to
+# /proc/<pid>/exe requires this capability. Thus if this capability is missing
+# the _EXE=/OBJECT_EXE= fields will be missing from the journal entries.
+CapabilityBoundingSet=CAP_SYS_ADMIN CAP_DAC_OVERRIDE CAP_SYS_PTRACE CAP_SYSLOG CAP_AUDIT_CONTR>
+
+# If there are many split up journal files we need a lot of fds to access them
+# all in parallel.
+LimitNOFILE=524288
