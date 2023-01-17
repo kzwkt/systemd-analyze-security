@@ -41,3 +41,4 @@ CapabilityBoundingSet=CAP_SYS_ADMIN CAP_DAC_OVERRIDE CAP_SYS_PTRACE CAP_SYSLOG C
 # If there are many split up journal files we need a lot of fds to access them
 # all in parallel.
 LimitNOFILE=524288
+
