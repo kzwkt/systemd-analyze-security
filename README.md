@@ -17,5 +17,5 @@ systemd-ask-password-wall.service         9.4 UNSAFE    😨
 systemd-fsckd.service                     9.5 UNSAFE    😨
 systemd-initctl.service                   9.4 UNSAFE    😨
 systemd-rfkill.service                    9.4 UNSAFE    😨
-systemd-udevd.service                     7.1 MEDIUM    😐
+systemd-udevd.service                     7.1 MEDIUM    😐   
 ```
